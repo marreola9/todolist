@@ -1,22 +1,22 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Task from "./components/Task";
 import { KeyboardAvoidingView } from "react-native-web";
 
 export default function App() {
-const [task, setTask] = useState();
-const [taskItems, setTaskItems] = useState([]);
+  const [task, setTask] = useState();
+  const [taskItems, setTaskItems] = useState([]);
 
-const handleAddTask = () => {
-  Keyboard.dismiss();
- setTaskItems([...taskItems, task])
- setTask(null);
-}
-const completeTask = (index) => {
-  let itemsCopy = [...taskItems];
-  itemsCopy.splice(index, 1);
-  setTaskItems(itemsCopy);
-}
+  const handleAddTask = () => {
+    Keyboard.dismiss();
+    setTaskItems([...taskItems, task]);
+    setTask(null);
+  };
+  const completeTask = (index) => {
+    let itemsCopy = [...taskItems];
+    itemsCopy.splice(index, 1);
+    setTaskItems(itemsCopy);
+  };
 
   return (
     <View style={styles.container}>
@@ -26,17 +26,13 @@ const completeTask = (index) => {
 
         <View styles={styles.items}>
           {/*this is where the task will go!*/}
-          {
-            taskItems.map((item, index) => {
-              return (
+          {taskItems.map((item, index) => {
+            return (
               <TouchableOpacity key={index} onPress={() => completeTask(index)}>
                 <Task text={item} />
-
               </TouchableOpacity>
-              )
-              <Task key={index} text={item} />
-          })
-        }
+            );
+          })}
           <Task text={"Task 1"} />
           <Task text={"Task 2"} />
         </View>
@@ -46,9 +42,14 @@ const completeTask = (index) => {
         behavior={Plataform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTaskWrapper}
       >
-        <TextImput style={styles.imput} placeholder={"Write a task"} value={task} onChageText={text => setTask(text)} />
+        <TextImput
+          style={styles.imput}
+          placeholder={"Write a task"}
+          value={task}
+          onChageText={(text) => setTask(text)}
+        />
 
-        <TouchableOpacity onPress={() => handleAddTask()}>>
+        <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
