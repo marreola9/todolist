@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Task from "./components/Task";
-import { KeyboardAvoidingView } from "react-native-web";
+import {
+  KeyboardAvoidingView,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+} from "react-native";
+import { Platform } from "react-native";
 
 export default function App() {
   const [task, setTask] = useState();
@@ -24,7 +30,7 @@ export default function App() {
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Today's tasks</Text>
 
-        <View styles={styles.items}>
+        <View style={styles.items}>
           {/*this is where the task will go!*/}
           {taskItems.map((item, index) => {
             return (
@@ -33,20 +39,18 @@ export default function App() {
               </TouchableOpacity>
             );
           })}
-          <Task text={"Task 1"} />
-          <Task text={"Task 2"} />
         </View>
       </View>
-      // Write a task
+      {/* Write a task */}
       <KeyboardAvoidingView
-        behavior={Plataform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTaskWrapper}
       >
-        <TextImput
-          style={styles.imput}
+        <TextInput
+          style={styles.input}
           placeholder={"Write a task"}
           value={task}
-          onChageText={(text) => setTask(text)}
+          onChangeText={(text) => setTask(text)}
         />
 
         <TouchableOpacity onPress={() => handleAddTask()}>
@@ -83,10 +87,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
-  imput: {
+  input: {
     paddingVertical: 15,
     paddingHorizontal: 15,
-    backgroundColor: "FFF",
+    backgroundColor: "#FFF",
     borderRadius: 60,
     borderColor: "#C0C0C0",
     borderWidth: 1,
